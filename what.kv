@@ -1,0 +1,67 @@
+#:kivy 1.10.0
+#: import sm kivy.uix.screenmanager
+
+
+<Root>:
+	screen_manager: screen_manager
+	ScreenManager:
+		id: screen_manager
+		transition: sm.SlideTransition()
+		canvas.before:
+			Color:
+				rgba: 1,1,1,0.945
+			Rectangle:
+				pos: 0,0
+				size: root.size
+
+		Screen:
+			manager: screen_manager
+			id: main_screen
+			name: 'main'		
+			
+			ScrollView:
+				bar_width: 4
+				GridLayout:
+					size_hint_y: None
+					cols: 1
+					height: self.minimum_height
+					padding: 10, 0, 0, 10
+					
+					Label:
+						size_hint_y: None
+						font_name: 'Futurepolis3000.ttf'
+						font_size: '50dp'
+						text: 'What Today?'
+						color: 0,0,0,1
+						
+					Label:
+						id: what_today_content
+						markup: True
+						size_hint_y: None
+						text_size: self.width, None
+						height: self.texture_size[1]
+						color: 0,0,0,1
+					
+					Label:
+						id: what_today_source
+						markup: True
+						size_hint_y: None
+						text_size: self.width, None
+						height: self.texture_size[1]
+						color: 0,0,0,1
+						on_ref_press:
+							import webbrowser
+							webbrowser.open(args[1])
+						
+
+		Screen:
+			id: articles_screen
+			name: 'articles'
+			manager: screen_manager					
+			
+	
+			Label:
+				color: 0,0,0,1
+				text: 'What When?'
+				pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+				
