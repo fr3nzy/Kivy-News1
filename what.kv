@@ -9,7 +9,7 @@
 		transition: sm.SlideTransition()
 		canvas.before:
 			Color:
-				rgba: 1,1,1,0.945
+				rgba: 1,1,1,0.05
 			Rectangle:
 				pos: 0,0
 				size: root.size
@@ -20,19 +20,48 @@
 			name: 'main'		
 			
 			ScrollView:
-				bar_width: 4
+				bar_width: 3
+							
 				GridLayout:
 					size_hint_y: None
 					cols: 1
 					height: self.minimum_height
-					padding: 10, 0, 0, 10
+					padding: 8, 0, 0, 0
 					
+					AnchorLayout:
+						anchor_y: 'top'
+						anchor_x: 'left'
+						padding: 10,15,0,0
+						Button:
+							on_press: 
+								root.screen_manager.transition.direction = 'right'
+								root.screen_manager.current = 'articles'
+							background_normal: 'icons/normal_background.jpg'
+							background_down: 'icons/down_background.jpg'
+							size_hint: None, None
+							size: root.width / 9, root.height/ 10
+							Image:
+								size_hint: None, None
+								size: self.parent.width, self.parent.height
+								allow_stretch: True
+								source: 'icons/back.png'
+								pos: self.parent.x, self.parent.y
+						
+					AnchorLayout:
+						anchor_y: 'top'
+						anchor_x: 'center'
+						padding: 0,0,10,0
+						Label:
+							id: date
+							size_hint: None, None
+							markup: True
+							font_size: dp(30)
+							color: 210/255,16/255,16/255
 					Label:
+						id: seperator_current
+						valign: 'middle'
+						color: 1,1,1,0.6
 						size_hint_y: None
-						font_name: 'Futurepolis3000.ttf'
-						font_size: '50dp'
-						text: 'What Today?'
-						color: 0,0,0,1
 						
 					Label:
 						id: what_today_content
@@ -40,28 +69,102 @@
 						size_hint_y: None
 						text_size: self.width, None
 						height: self.texture_size[1]
-						color: 0,0,0,1
-					
+						color: 1,1,1,0.8
+						
 					Label:
 						id: what_today_source
 						markup: True
 						size_hint_y: None
 						text_size: self.width, None
-						height: self.texture_size[1]
+						size: self.texture_size
 						color: 0,0,0,1
 						on_ref_press:
 							import webbrowser
 							webbrowser.open(args[1])
-						
-
+							
+			AnchorLayout:
+				anchor_y: 'bottom'
+				anchor_x: 'right'
+				padding: 10, 0, 3, 0
+				RelativeLayout:
+					canvas:
+						Color: 
+							rgba: 110/255, 127/255, 128/255, 1
+						Rectangle:
+							pos: 3.1 * (root.width / 5), 0
+							size: 1.9 * (root.width / 5), root.height / 16
+					TextInput:
+						id: url_no
+						hint_text: "No. #1-x"
+						multiline: False
+						focus: False
+						cursor_blink: False
+						size_hint: None, None
+						height: root.height / 22
+						width: root.width / 10
+						pos_hint: {'center_x': 0.7, 'center_y': 0.03}
+						on_text: root.input_text(url_no.text)
+					CopyButton:
+						text: 'Copy'
+						size_hint: None, None
+						height: root.height / 22
+						width: root.width / 10
+						pos_hint: {'center_x': 0.83, 'center_y': 0.03}
+					OpenButton:
+						text: 'Open'
+						size_hint: None, None
+						height: root.height / 22
+						width: root.width / 10
+						pos_hint: {'center_x': 0.94, 'center_y': 0.03}
+					
+					
 		Screen:
 			id: articles_screen
 			name: 'articles'
-			manager: screen_manager					
+			manager: screen_manager			
 			
-	
-			Label:
-				color: 0,0,0,1
-				text: 'What When?'
-				pos_hint: {'center_x': 0.5, 'center_y': 0.95}
+			ScrollView:
+				bar_width: 3
+							
+				GridLayout:
+					size_hint_y: None
+					cols: 1
+					height: self.minimum_height
+					padding: 8, 0, 0, 0
+					
+					AnchorLayout:
+						anchor_y: 'top'
+						anchor_x: 'right'
+						padding: 10,15,0,0
+						Button:
+							on_press: 
+								root.screen_manager.transition.direction = 'left'
+								root.screen_manager.current = 'main'
+							background_normal: 'icons/normal_background.jpg'
+							background_down: 'icons/down_background.jpg'
+							size_hint: None, None
+							size: root.width / 9, root.height/ 10
+							Image:
+								size_hint: None, None
+								size: self.parent.width, self.parent.height
+								allow_stretch: True
+								source: 'icons/back_reverse.png'
+								pos: self.parent.x, self.parent.y
+				
+					AnchorLayout:
+						anchor_y: 'top'
+						anchor_x: 'center'
+						padding: 0,0,10,0
+						Label:
+							id: previous
+							size_hint: None, None
+							markup: True
+							font_size: dp(30)
+							color: 210/255,16/255,16/255
+					Label:
+						id: separator_articles
+						valign: 'middle'
+						color: 1,1,1,0.6
+						size_hint_y: None		
+			
 				
