@@ -71,17 +71,6 @@
 						height: self.texture_size[1]
 						color: 1,1,1,0.8
 						
-					Label:
-						id: what_today_source
-						markup: True
-						size_hint_y: None
-						text_size: self.width, None
-						size: self.texture_size
-						color: 0,0,0,1
-						on_ref_press:
-							import webbrowser
-							webbrowser.open(args[1])
-							
 			AnchorLayout:
 				anchor_y: 'bottom'
 				anchor_x: 'right'
